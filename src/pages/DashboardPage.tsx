@@ -52,7 +52,7 @@ const DashboardPage: React.FC = () => {
 
   // Lista de categorías únicas para el filtro
   const categories = useMemo(
-    () => [...new Set(products.map((p) => p.category?.name))].sort(),
+    () => [...new Set(products.map((p) => p.category))].sort(),
     [products]
   );
 
@@ -61,7 +61,7 @@ const DashboardPage: React.FC = () => {
     const maxPrice = maxPriceStr === "" ? Infinity : Number(maxPriceStr);
     return products.filter(
       (p) =>
-        (selectedCategory === "all" || p.category?.name === selectedCategory) &&
+        (selectedCategory === "all" || p.category === selectedCategory) &&
         p.price >= minPrice &&
         p.price <= maxPrice
     );
