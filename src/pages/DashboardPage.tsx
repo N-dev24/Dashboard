@@ -69,7 +69,7 @@ const DashboardPage: React.FC = () => {
 
   // ── KPIs ──────────────────────────────────────────────────────────────────
   const totalProducts = filtered.length;
-  const uniqueCategories = new Set(filtered.map((p) => p.category?.name)).size;
+  const uniqueCategories = new Set(filtered.map((p) => p.category)).size;
   const avgPrice =
     filtered.length > 0
       ? filtered.reduce((s, p) => s + p.price, 0) / filtered.length
@@ -85,7 +85,7 @@ const DashboardPage: React.FC = () => {
   const countByCategory = useMemo(() => {
     const map: Record<string, number> = {};
     filtered.forEach((p) => {
-      map[p.category?.name] = (map[p.category?.name] || 0) + 1;
+      map[p.category] = (map[p.category] || 0) + 1;
     });
     return Object.entries(map)
       .map(([name, count]) => ({ name, count }))
@@ -102,9 +102,9 @@ const DashboardPage: React.FC = () => {
   const avgPriceByCategory = useMemo(() => {
     const map: Record<string, { sum: number; count: number }> = {};
     filtered.forEach((p) => {
-      if (!map[p.category?.name]) map[p.category?.name] = { sum: 0, count: 0 };
-      map[p.category?.name].sum += p.price;
-      map[p.category?.name].count += 1;
+      if (!map[p.category]) map[p.category] = { sum: 0, count: 0 };
+      map[p.category].sum += p.price;
+      map[p.category].count += 1;
     });
     return Object.entries(map)
       .map(([name, { sum, count }]) => ({
