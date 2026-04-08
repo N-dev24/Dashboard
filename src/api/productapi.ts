@@ -12,9 +12,11 @@ interface ApiResponse<T> {
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
-    const res = await api.get<ApiResponse<Product[]>>("/product");
+    const res = await api.get<ApiResponse<Product[]>>("/products");
 
-    return res.data.payload;
+    console.log("Fetched products:", res.data);
+
+    return res.data;
   } catch (error) {
     const err = error as AxiosError;
 
